@@ -267,15 +267,11 @@
                         <div class="mainmenu">
                             <nav>
                                 <ul>
-                                    <li><a href="index.html">Home</a>
-                                        <ul>
-                                            <li><a href="index.html">Home Versions 1</a></li>
-                                            <li><a href="index-2.html">Home Versions 2</a></li>
-                                        </ul>
+                                    <li><a href="{% url 'home' %}">Home</a>
                                     </li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li class="hot"><a href="shop.html">Bestseller Products</a></li>
-                                    <li class="new"><a href="shop-list.html">New Products</a></li>
+                                    <li><a href="{% url 'about' %}">About Us</a></li>
+                                    <li class="hot"><a href="{% url 'shop_product' %}">Bestseller Products</a></li>
+                                    <li class="new"><a href="{% url 'shop_list' %}">New Products</a></li>
                                     <li><a href="shop.html">Special Products</a></li>
                                     <li><a href="#">Pages</a>
                                         <ul>
@@ -305,15 +301,11 @@
                     <div class="col-xs-12">
                         <nav id="mobile-menu">
                             <ul>
-                                <li><a href="index.html">Home</a>
-                                    <ul>
-                                        <li><a href="index.html">Home Page 1</a></li>
-                                        <li><a href="index-2.html">Home Page 2</a></li>
-                                    </ul>
+                                <li><a href="{% url 'home' %}">Home</a>
                                 </li>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="shop.html">Bestseller Products</a></li>
-                                <li><a href="shop-list.html">New Products</a></li>
+                                <li><a href="{% url 'about' %}">About Us</a></li>
+                                <li><a href="{% url 'shop_product' %}">Bestseller Products</a></li>
+                                <li><a href="{% url 'shop_list' %}">New Products</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul>
                                         <li><a href="cart.html">Cart</a></li>
@@ -364,7 +356,7 @@
                             <nav>
                                 <ul class="footer-content">
                                     <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="{% url 'about' %}">About Us</a></li>
                                     <li><a href="#">Delivery Information</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Terms & Conditions</a></li>
