@@ -126,7 +126,6 @@
                                             <div class="listview">
                                                 <!-- Start Single-Product -->
                                                 {% for item in item_list %}
-                                                {% if forloop.counter < 6 %}
                                                 <div class="single-product">
                                                     <div class="col-md-3 col-sm-4 col-xs-12">
                                                         <div class="label_new">
@@ -184,7 +183,6 @@
                                                     </div>
                                                 </div>
                                                 <!-- End Single-Product -->
-                                                {% endif %}
                                                 {% endfor %}
                                             </div>
                                         </div>
@@ -192,18 +190,34 @@
                                         <div class="pagination-area">
                                             <div class="row">
                                                 <div class="col-xs-5">
-                                                    <div class="pagination">
-                                                        <ul>
-                                                            <li class="active"><a href="#">1</a></li>
-                                                            <li><a href="#">2</a></li>
-                                                            <li><a href="#">></a></li>
-                                                            <li><a href="#">>|</a></li>
-                                                        </ul>
-                                                    </div>
+                                                    {% if is_paginated %}
+                                                         <div class="pagination">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="{{ previous_url }}" style="{% if not previous_url %} color:#b5b5b5; {% endif %}" >Previous</a>
+                                                                </li>
+
+                                                                {% for n in item_list.paginator.page_range %}
+                                                                    {% if n == item_list.number %}
+                                                                         <li class="active">
+                                                                             <a href="{{ path }}{{ search_url }}page={{ n }}">{{ n }}</a>
+                                                                         </li>
+                                                                    {% elif n > item_list.number|add:-3 and n < item_list.number|add:3 %}
+                                                                        <li>
+                                                                            <a href="{{ path }}{{ search_url }}page={{ n }}">{{ n }}</a>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                <li>
+                                                                    <a href="{{ next_url }}" style="{% if not next_url %} color:#b5b5b5; {% endif %}">Next</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                                 <div class="col-xs-7">
                                                     <div class="product-result">
-                                                        <span>Showing 1 to 16 of 19 (2 Pages)</span>
+                                                        <span>Showing 1 to {{item.count}} of {{item_list.count}}</span>
                                                     </div>
                                                 </div>
                                             </div>
