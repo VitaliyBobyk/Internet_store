@@ -92,8 +92,11 @@
                                 <li><a href="my-account.html"><i class="fa fa-user"></i> Hello,  {{request.user}}</a></li>
                                 <li><a href="wishlist.html"><i class="fa fa-heart"></i> Wish List (0)</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-share"></i> Checkout</a></li>
-                                <li><a href="{% url 'login' %}"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                <li><a href="{% url 'logout' %}"><i class="fa fa-unlock-alt"></i> LogOut</a></li>
+                                {% if request.user.is_active %}
+                                    <li><a href="{% url 'logout' %}"><i class="fa fa-unlock-alt"></i>LogOut</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'login' %}"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <!-- End Top-Link -->
