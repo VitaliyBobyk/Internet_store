@@ -198,63 +198,50 @@
                                     </form>
                                 </div>
                             </div>
+                            {% if request.user.is_active %}
                             <div class="top-cart">
-                                <ul>
-                                    <li>
-                                        <a href="cart.html">
-                                            <span class="cart-icon"><i class="fa fa-shopping-cart"></i></span>
-                                            <span class="cart-total">
-                                                <span class="cart-title">shopping cart</span>
-                                                <span class="cart-item">2 item(s)- </span>
-                                                <span class="top-cart-price">$365.00</span>
-                                            </span>
-                                        </a>
-                                        <div class="mini-cart-content">
-                                            <div class="cart-img-details">
-                                                <div class="cart-img-photo">
-                                                    <a href="#"><img src="{% static 'img/product/total-cart.jpg' %}" alt="#"></a>
-                                                </div>
-                                                <div class="cart-img-content">
-                                                    <a href="#"><h4>Prod Aldults</h4></a>
-                                                    <span>
-                                                        <strong class="text-right">1 x</strong>
-                                                        <strong class="cart-price text-right">$180.00</strong>
-                                                    </span>
-                                                </div>
-                                                <div class="pro-del">
-                                                    <a href="#"><i class="fa fa-times"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="clear"></div>
-                                            <div class="cart-img-details">
-                                                <div class="cart-img-photo">
-                                                    <a href="#"><img src="{% static 'img/product/total-cart2.jpg' %}" alt="#"></a>
-                                                </div>
-                                                <div class="cart-img-content">
-                                                    <a href="#"><h4>Fact Prone</h4></a>
-                                                    <span>
-                                                        <strong class="text-right">1 x</strong>
-                                                        <strong class="cart-price text-right">$185.00</strong>
-                                                    </span>
-                                                </div>
-                                                <div class="pro-del">
-                                                    <a href="#"><i class="fa fa-times"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="cart-inner-bottom">
-                                                <span class="total">
-                                                    Total:
-                                                    <span class="amount">$550.00</span>
-                                                </span>
-                                                <span class="cart-button-top">
-                                                    <a href="cart.html">View Cart</a>
-                                                    <a href="checkout.html">Checkout</a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+		                    		<ul>
+		                    			<li>
+			                    			<a href="cart.html">
+			                    				<span class="cart-icon"><i class="fa fa-shopping-cart"></i></span>
+			                    				<span class="cart-total">
+			                    					<span class="cart-title">shopping cart</span>
+				                    				<span class="cart-item">{{ query_items.count }} item(s) </span>
+			                    				</span>
+			                    			</a>
+											<div class="mini-cart-content">
+                                                {% for item in query_items %}
+												<div class="cart-img-details">
+													<div class="cart-img-photo">
+														<a href="#"><img src="{{ item.image.url }}" alt="#"></a>
+													</div>
+													<div class="cart-img-content">
+														<a href="#"><h4>{{ item.title }}</h4></a>
+														<span>
+															<strong class="text-right">1 x</strong>
+															<strong class="cart-price text-right">${{ item.new_price }}</strong>
+														</span>
+													</div>
+													<div class="pro-del">
+														<a href="#"><i class="fa fa-times"></i></a>
+													</div>
+												</div>
+                                                {% endfor %}
+												<div class="cart-inner-bottom">
+													<span class="total">
+														Total:
+														<span class="amount">${{ total_price_basket }}</span>
+													</span>
+													<span class="cart-button-top">
+														<a href="cart.html">View Cart</a>
+														<a href="checkout.html">Checkout</a>
+													</span>
+												</div>
+											</div>
+		                    			</li>
+		                    		</ul>
+		                    	</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

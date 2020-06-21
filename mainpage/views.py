@@ -11,7 +11,7 @@ class ItemsView(View):
         items = Item.objects.all()
         items_last = Item.objects.all()[::-2]
         context = {'item_list': items, 'item_last': items_last}
-        return render(request, "index.html", context)
+        return render(request, "user_basket.html", context)
 
 
 class About(View):
