@@ -202,7 +202,7 @@
                             <div class="top-cart">
 		                    		<ul>
 		                    			<li>
-			                    			<a href="cart.html">
+			                    			<a href="{% url 'product_cart' %}">
 			                    				<span class="cart-icon"><i class="fa fa-shopping-cart"></i></span>
 			                    				<span class="cart-total">
 			                    					<span class="cart-title">shopping cart</span>
@@ -223,7 +223,10 @@
 														</span>
 													</div>
 													<div class="pro-del">
-														<a href="#"><i class="fa fa-times"></i></a>
+                                                        <form action="{% url 'delete_from_cart' %}" method="post">
+                                                            {% csrf_token %}
+														<button type="submit" name="item_id" value= '{{ item.id }} 'class="bg-white"><i class="fa fa-times "></i></button>
+                                                        </form>
 													</div>
 												</div>
                                                 {% endfor %}
@@ -262,10 +265,10 @@
                                     <li><a href="{% url 'about' %}">About Us</a></li>
                                     <li class="hot"><a href="{% url 'shop_product' %}">Bestseller Products</a></li>
                                     <li class="new"><a href="{% url 'shop_list' %}">New Products</a></li>
-                                    <li><a href="shop.html">Special Products</a></li>
+                                    <li><a href="{% url 'product_cart' %}">Cart</a></li>
                                     <li><a href="#">Pages</a>
                                         <ul>
-                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="{% url 'product_cart' %}">Cart</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="account.html">Create Account</a></li>
                                             <li><a href="my-account.html">My Account</a></li>

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authorization',
     'mainpage',
-    'user_basket',
 ]
 
 MIDDLEWARE = [

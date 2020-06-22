@@ -1,25 +1,50 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
-from .models import Item, Category
+from .models import Item, Category, UserBasket
 from django.core.paginator import Paginator
 import re
 
 
-class ItemsView(View):
+class BasketView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            items_basket = UserBasket.objects.filter(current_user=request.user)
+            query_items = []
+            for item_basket in items_basket:
+                query_items = item_basket.items.all()
+            total_price_basket = 0
+            for i in query_items:
+                total_price_basket += int(i.new_price)
+            return query_items, total_price_basket
+
+
+class ItemsView(BasketView, View):
     def get(self, request):
         items = Item.objects.all()
         items_last = Item.objects.all()[::-2]
-        context = {'item_list': items, 'item_last': items_last}
-        return render(request, "user_basket.html", context)
+        context = {'item_list': items,
+                   'item_last': items_last
+                   }
+        if request.user.is_authenticated:
+            basket = BasketView.get(self, request)
+            context.setdefault('query_items', basket[0])
+            context.setdefault('total_price_basket', basket[1])
+        return render(request, "index.html", context)
 
 
-class About(View):
+class About(BasketView, View):
     def get(self, request):
-        return render(request, "about.html")
+        context = {
+        }
+        if request.user.is_authenticated:
+            basket = BasketView.get(self, request)
+            context.setdefault('query_items', basket[0])
+            context.setdefault('total_price_basket', basket[1])
+        return render(request, "about.html", context)
 
 
-class Shop(View):
+class Shop(BasketView, View):
     def get(self, request):
         path = re.sub(r'[&]?[?]?page=[0-9]+', '', request.build_absolute_uri())
         category = Category.objects.all()
@@ -91,17 +116,58 @@ class Shop(View):
                    'search_url': search_url,
                    'path': path
                    }
+        if request.user.is_authenticated:
+            basket = BasketView.get(self, request)
+            context.setdefault('query_items', basket[0])
+            context.setdefault('total_price_basket', basket[1])
         if 'shop_list' in path:
             return render(request, "shop_list.html", context)
         else:
             return render(request, "shop.html", context)
 
 
-class ProductDetail(View):
+class ProductDetail(BasketView, View):
     def get(self, request, pk):
         items = Item.objects.all()
         item = Item.objects.get(id=pk)
-        context = {'item_list': items, 'item': item}
+        context = {'item_list': items,
+                   'item': item
+                   }
+        if request.user.is_authenticated:
+            basket = BasketView.get(self, request)
+            context.setdefault('query_items', basket[0])
+            context.setdefault('total_price_basket', basket[1])
         return render(request, "product_detail.html", context)
 
 
+class AddToCart(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            one_item = Item.objects.filter(id=request.POST.get('wanted_item'))
+            obj = UserBasket.objects.get_or_create(current_user=request.user, defaults={'current_user': request.user})
+            obj[0].items.add(one_item[0])
+            obj[0].save()
+        return redirect('/')
+
+
+class DeleteFromCart(View):
+    def post(self, request):
+        item_to_delete = Item.objects.filter(id=request.POST.get('item_id'))
+        user = UserBasket.objects.get(current_user=request.user)
+        user.items.remove(item_to_delete[0])
+        user.save()
+        return redirect('/')
+
+
+class ProductCart(BasketView, View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            cart = UserBasket.objects.filter(current_user=request.user)
+            context = {
+                'user_items': cart[0].items.all(),
+            }
+            if request.user.is_authenticated:
+                basket = BasketView.get(self, request)
+                context.setdefault('query_items', basket[0])
+                context.setdefault('total_price_basket', basket[1])
+            return render(request, 'cart.html', context)

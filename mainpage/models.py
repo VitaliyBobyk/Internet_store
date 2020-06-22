@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -37,3 +38,13 @@ class Item(models.Model):
         verbose_name_plural = 'Товари'
 
 
+class UserBasket(models.Model):
+    current_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Item)
+
+    def __str__(self):
+        return f'{str(self.current_user).title()}\'s basket'
+
+    class Meta:
+        verbose_name = 'Корзина користувача'
+        verbose_name_plural = 'Корзина користувачів'
