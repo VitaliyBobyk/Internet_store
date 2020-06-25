@@ -15,7 +15,7 @@ class BasketView(View):
                 query_items = item_basket.items.all()
             total_price_basket = 0
             for i in query_items:
-                total_price_basket += int(i.new_price)
+                total_price_basket += float(i.new_price)
             return query_items, total_price_basket
 
 
@@ -163,8 +163,10 @@ class ProductCart(BasketView, View):
     def get(self, request):
         if request.user.is_authenticated:
             cart = UserBasket.objects.filter(current_user=request.user)
+            items = Item.objects.all()
             context = {
                 'user_items': cart[0].items.all(),
+                'item_list': items,
             }
             if request.user.is_authenticated:
                 basket = BasketView.get(self, request)

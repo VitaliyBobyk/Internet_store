@@ -222,7 +222,7 @@
 															<strong class="cart-price text-right">${{ item.new_price }}</strong>
 														</span>
 													</div>
-													<div class="pro-del">
+													<div>
                                                         <form action="{% url 'delete_from_cart' %}" method="post">
                                                             {% csrf_token %}
 														<button type="submit" name="item_id" value= '{{ item.id }} 'class="bg-white"><i class="fa fa-times "></i></button>
@@ -236,7 +236,7 @@
 														<span class="amount">${{ total_price_basket }}</span>
 													</span>
 													<span class="cart-button-top">
-														<a href="cart.html">View Cart</a>
+														<a href="{% url 'product_cart' %}">View Cart</a>
 														<a href="checkout.html">Checkout</a>
 													</span>
 												</div>
@@ -273,8 +273,8 @@
                                             <li><a href="account.html">Create Account</a></li>
                                             <li><a href="my-account.html">My Account</a></li>
                                             <li><a href="product-details.html">Product details</a></li>
-                                            <li><a href="shop.html">Shop Grid View</a></li>
-                                            <li><a href="shop-list.html">Shop List View</a></li>
+                                            <li><a href="{% url 'shop' %}">Shop Grid View</a></li>
+                                            <li><a href="{% url 'shop_list' %}">Shop List View</a></li>
                                             <li><a href="wishlist.html">Wish List</a></li>
                                         </ul>
                                     </li>
