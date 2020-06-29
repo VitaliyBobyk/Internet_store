@@ -27,11 +27,11 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'account.html')
+            return redirect('home')
     context = {'form': form}
     return render(request, 'account.html', context)
 
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('register')

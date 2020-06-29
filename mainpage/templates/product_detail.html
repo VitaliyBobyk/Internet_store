@@ -369,10 +369,12 @@
                                 </div>
                             </div>
                             <div class="product-quantity">
+                                {% if request.user.is_active %}
                                 <form action="{%  url 'add_to_cart' %}" method="post">
                                     {% csrf_token %}
                                 <button type="submit" name="wanted_item" value="{{ item.id }}" type="submit" class="toch-button toch-add-cart">Add to Cart</button>
                                 </form>
+                                {% endif %}
                                 <hr/>
                             </div>
                         </div>

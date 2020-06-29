@@ -265,10 +265,14 @@
                                     <li><a href="{% url 'about' %}">About Us</a></li>
                                     <li class="hot"><a href="{% url 'shop_product' %}">Bestseller Products</a></li>
                                     <li class="new"><a href="{% url 'shop_list' %}">New Products</a></li>
+                                    {% if request.user.is_active %}
                                     <li><a href="{% url 'product_cart' %}">Cart</a></li>
+                                    {% endif %}
                                     <li><a href="#">Pages</a>
                                         <ul>
+                                            {% if request.user.is_active %}
                                             <li><a href="{% url 'product_cart' %}">Cart</a></li>
+                                            {% endif %}
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="account.html">Create Account</a></li>
                                             <li><a href="my-account.html">My Account</a></li>

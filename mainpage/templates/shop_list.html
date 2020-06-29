@@ -161,6 +161,7 @@
                                                             <div class="product-action">
                                                                 <div class="button-group">
                                                                     <div class="product-button">
+                                                                        {% if request.user.is_active %}
                                                                         <form action="{%  url 'add_to_cart' %}" method="post">
                                                                             {% csrf_token %}
                                                                             <div class="product-button">
@@ -171,6 +172,7 @@
                                                                                 </button>
                                                                             </div>
                                                                         </form>
+                                                                        {% endif %}
                                                                     </div>
                                                                     <div class="product-button-2">
                                                                         <a href="#" data-toggle="tooltip"

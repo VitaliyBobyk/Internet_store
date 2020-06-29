@@ -8,8 +8,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="page-menu">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active"><a href="account.html">Account</a></li>
+                            <li><a href="{% url 'login' %}">Log In</a></li>
+                            <li class="active"><a href="{% url 'register' %}">Registration</a></li>
                         </ul>
                     </div>
                 </div>
@@ -44,6 +44,7 @@
                                             <p class="for-newsletter"><input type="checkbox" /> Sign Up for Newsletter</p>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="account-create-box">
                                     <h2 class="box-info">Login Information</h2>
@@ -65,7 +66,8 @@
                                 <div class="submit-area">
                                     <p class="required text-right">* Required Fields</p>
                                     <button type="submit" class="btn btn-primary floatright">submit</button>
-                                    <a href="login.html" class="float-left"><span><i class="fa fa-angle-double-left"></i></span> Back</a>
+                                    <span>Alreeady have a account?&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></span>
+                                    <a href="{% url 'login' %}" class="float-left">LogIn</a>
                                 </div>
                             </div>
                         </div>

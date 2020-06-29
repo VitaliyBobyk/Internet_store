@@ -48,3 +48,15 @@ class UserBasket(models.Model):
     class Meta:
         verbose_name = 'Корзина користувача'
         verbose_name_plural = 'Корзина користувачів'
+
+
+class UserWishList(models.Model):
+    current_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Item)
+
+    def __str__(self):
+        return f'{str(self.current_user).title()}\'s wish list'
+
+    class Meta:
+        verbose_name = 'Список бажань користувача'
+        verbose_name_plural = 'Список бажань користувачів'

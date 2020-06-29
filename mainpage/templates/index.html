@@ -278,6 +278,7 @@
                                                                     <i class="fa fa-star-o"></i>
                                                                 </span>
                                                         </div>
+                                                        {% if request.user.is_active %}
                                                         <div class="product-action">
                                                             <div class="button-group">
                                                                 <form action="{%  url 'add_to_cart' %}" method="post">
@@ -302,6 +303,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                                 {% endif %}
@@ -381,6 +383,7 @@
                                                                     <i class="fa fa-star"></i>
                                                                     <i class="fa fa-star-o"></i>
                                                                 </span>
+                                                            {% if request.user.is_active %}
                                                             <div class="product-action">
                                                                 <div class="button-group">
                                                                     <form action="{%  url 'add_to_cart' %}"
@@ -394,6 +397,7 @@
                                                                             </button>
                                                                         </div>
                                                                     </form>
+
                                                                     <div class="product-button-2">
                                                                         <a href="#" data-toggle="tooltip"
                                                                            title="Wishlist"><i
@@ -407,6 +411,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -487,6 +492,7 @@
                                                                 </span>
                                                                 <div class="product-action">
                                                                     <div class="button-group">
+                                                                        {% if request.user.is_active %}
                                                                         <form action="{%  url 'add_to_cart' %}"
                                                                               method="post">
                                                                             {% csrf_token %}
@@ -498,6 +504,7 @@
                                                                                 </button>
                                                                             </div>
                                                                         </form>
+                                                                        {% endif %}
                                                                         <div class="product-button-2">
                                                                             <a href="#" data-toggle="tooltip"
                                                                                title="Wishlist"><i
