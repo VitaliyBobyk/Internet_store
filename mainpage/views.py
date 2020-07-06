@@ -173,3 +173,20 @@ class ProductCart(BasketView, View):
                 context.setdefault('query_items', basket[0])
                 context.setdefault('total_price_basket', basket[1])
             return render(request, 'cart.html', context)
+
+
+class SearchProducts(BasketView, View):
+    def get(self, request):
+        items = Item.objects.filter(
+            Q(title__icontains=request.GET.get('filter')) |
+            Q(brand__icontains=request.GET.get('filter'))
+        )
+        items_last = Item.objects.all()[::-2]
+        context = {'item_list': items,
+                   'item_last': items_last
+                   }
+        if request.user.is_authenticated:
+            basket = BasketView.get(self, request)
+            context.setdefault('query_items', basket[0])
+            context.setdefault('total_price_basket', basket[1])
+        return render(request, "index.html", context)

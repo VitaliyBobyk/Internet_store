@@ -164,36 +164,15 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-12">
                         <div class="logo">
-                            <a href="index.html" title="Malias"><img src="{% static 'img/logo.png' %}" alt="Malias"></a>
+                            <a href="{% url 'home' %}" title="Malias"><img src="{% static 'img/logo.png' %}" alt="Malias"></a>
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-12">
                         <div class="quick-access">
                             <div class="search-by-category">
-                                <div class="search-container">
-                                    <select>
-                                        <option class="all-cate">All Categories</option>
-                                        <optgroup  class="cate-item-head" label="Cameras & Photography">
-                                            <option class="cate-item-title">Handbags</option>
-                                            <option class="c-item">Blouses And Shirts</option>
-                                            <option class="c-item">Clouthes</option>
-                                        </optgroup>
-                                        <optgroup  class="cate-item-head" label="Laptop & Computer">
-                                            <option class="cate-item-title">Apple</option>
-                                            <option class="c-item">Dell</option>
-                                            <option class="c-item">Hp</option>
-                                            <option class="c-item">Sony</option>
-                                        </optgroup>
-                                        <optgroup  class="cate-item-head" label="Electronic">
-                                            <option class="c-item">Mobile</option>
-                                            <option class="c-item">Speaker</option>
-                                            <option class="c-item">Headphone</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
                                 <div class="header-search">
-                                    <form action="#">
-                                        <input type="text" placeholder="Search">
+                                    <form action="{%  url 'search' %}" method="get">
+                                        <input type="text" placeholder="Search" name="filter" value="">
                                         <button type="submit"><i class="fa fa-search"></i></button>
                                     </form>
                                 </div>
@@ -263,8 +242,8 @@
                                     <li><a href="{% url 'home' %}">Home</a>
                                     </li>
                                     <li><a href="{% url 'about' %}">About Us</a></li>
-                                    <li class="hot"><a href="{% url 'shop_product' %}">Bestseller Products</a></li>
-                                    <li class="new"><a href="{% url 'shop_list' %}">New Products</a></li>
+                                    <li><a href="{% url 'shop_product' %}">Bestseller Products</a></li>
+                                    <li><a href="{% url 'shop_list' %}">New Products</a></li>
                                     {% if request.user.is_active %}
                                     <li><a href="{% url 'product_cart' %}">Cart</a></li>
                                     {% endif %}
