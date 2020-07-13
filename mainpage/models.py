@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.timezone import datetime
 
 class Category(models.Model):
     name = models.CharField('Категорія', max_length=150)
@@ -50,13 +50,16 @@ class UserBasket(models.Model):
         verbose_name_plural = 'Корзина користувачів'
 
 
-class UserWishList(models.Model):
-    current_user = models.OneToOneField(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(Item)
+class UserReviews(models.Model):
+    current_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    review = models.TextField('Відгук')
+    pub_date = models.DateTimeField('Дата публікації', default=datetime.now())
+    reting = models.CharField('Рейтинг', max_length=150, default=5)
 
     def __str__(self):
-        return f'{str(self.current_user).title()}\'s wish list'
+        return f'{str(self.current_user).title()}\'s feedbacks'
 
     class Meta:
-        verbose_name = 'Список бажань користувача'
-        verbose_name_plural = 'Список бажань користувачів'
+        verbose_name = 'Відгук користувача'
+        verbose_name_plural = 'Відгуки користувача'

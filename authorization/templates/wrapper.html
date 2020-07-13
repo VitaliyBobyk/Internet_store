@@ -192,10 +192,10 @@
                                                 {% for item in query_items %}
 												<div class="cart-img-details">
 													<div class="cart-img-photo">
-														<a href="#"><img src="{{ item.image.url }}" alt="#"></a>
+														<a href="http://127.0.0.1:8000/product_detail/{{item.id}}"><img src="{{ item.image.url }}" alt="#"></a>
 													</div>
 													<div class="cart-img-content">
-														<a href="#"><h4>{{ item.title }}</h4></a>
+														<a href="http://127.0.0.1:8000/product_detail/{{item.id}}"><h4>{{ item.title }}</h4></a>
 														<span>
 															<strong class="text-right">1 x</strong>
 															<strong class="cart-price text-right">${{ item.new_price }}</strong>

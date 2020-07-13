@@ -1,8 +1,10 @@
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
-from .models import Item, Category, UserBasket
+from .models import Item, Category, UserBasket,UserReviews
 from django.core.paginator import Paginator
+from .forms import ReviewForm
 import re
 
 
@@ -127,12 +129,30 @@ class Shop(BasketView, View):
 
 
 class ProductDetail(BasketView, View):
+    def post(self, request, pk):
+        item = Item.objects.get(id=pk)
+        if request.user.is_authenticated:
+            if request.method == 'POST':
+                form = ReviewForm(request.POST)
+                if form.is_valid() or None:
+                    """Запис нового поста в БД"""
+                    review = form.save(commit=False)
+                    review.current_user = request.user
+                    review.item = item
+                    review.save()
+                    return redirect(f'http://127.0.0.1:8000/product_detail/{pk}')
+
     def get(self, request, pk):
         items = Item.objects.all()
         item = Item.objects.get(id=pk)
+        form = ReviewForm()
+        reviews = UserReviews.objects.filter(item=item)
         context = {'item_list': items,
-                   'item': item
+                   'item': item,
+                   'reviews': reviews,
+                   'form': form,
                    }
+
         if request.user.is_authenticated:
             basket = BasketView.get(self, request)
             context.setdefault('query_items', basket[0])
@@ -190,3 +210,15 @@ class SearchProducts(BasketView, View):
             context.setdefault('query_items', basket[0])
             context.setdefault('total_price_basket', basket[1])
         return render(request, "index.html", context)
+
+
+# class WriteReview(BasketView, View):
+#     def post(self, request):
+#         context = {
+#
+#         }
+#         if request.user.is_authenticated:
+#             basket = BasketView.get(self, request)
+#             context.setdefault('query_items', basket[0])
+#             context.setdefault('total_price_basket', basket[1])
+#         return render(request, "index.html", context)
