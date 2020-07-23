@@ -89,7 +89,9 @@
                         <!-- Start Top-Link -->
                         <div class="top-link">
                             <ul class="link">
+                                {% if request.user.is_active %}
                                 <li><a href="my-account.html"><i class="fa fa-user"></i> Hello,  {{request.user}}</a></li>
+                                {% endif %}
                                 <li><a href="wishlist.html"><i class="fa fa-heart"></i> Wish List (0)</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-share"></i> Checkout</a></li>
                                 {% if request.user.is_active %}

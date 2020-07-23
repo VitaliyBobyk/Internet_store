@@ -254,11 +254,9 @@
                                                             <tr>
                                                                 <td colspan="2">
                                                                     <p>{{ review.review }}</p>
-                                                                    <span><i class="fa fa-star"></i></span>
-                                                                    <span><i class="fa fa-star"></i></span>
-                                                                    <span><i class="fa fa-star"></i></span>
-                                                                    <span><i class="fa fa-star"></i></span>
-                                                                    <span><i class="fa fa-star-o"></i></span>
+                                                                    {% for i in range(5) %}
+                                                                        <span><i class="fa fa-star">{{ i }}</i></span>
+                                                                    {% endfor %}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -282,13 +280,11 @@
                                                         </div>
                                                         <div class="get-rating">
                                                             <span><sup>*</sup>Rating </span>
-                                                            Bad
                                                             <input type="radio" value="1" name="rating"/>
                                                             <input type="radio" value="2" name="rating"/>
                                                             <input type="radio" value="3" name="rating"/>
                                                             <input type="radio" value="4" name="rating"/>
                                                             <input type="radio" value="5" name="rating"/>
-                                                            Good
                                                         </div>
                                                         <div class="buttons clearfix">
                                                             <button type="submit" class="btn btn-primary pull-right">Continue</button>

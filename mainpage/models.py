@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import datetime
 
+
 class Category(models.Model):
+    """Модель для категорій товарів"""
     name = models.CharField('Категорія', max_length=150)
     description = models.TextField('Опис')
 
@@ -15,6 +17,7 @@ class Category(models.Model):
 
 
 class Item(models.Model):
+    """Модель для товарів"""
     title = models.CharField('Назва товару', max_length=150)
     old_price = models.CharField('Стара ціна', blank=True, max_length=150)
     new_price = models.CharField('Нова ціна', max_length=150)
@@ -39,6 +42,7 @@ class Item(models.Model):
 
 
 class UserBasket(models.Model):
+    """Модель для корзини користувача"""
     current_user = models.OneToOneField(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(Item)
 
@@ -51,11 +55,12 @@ class UserBasket(models.Model):
 
 
 class UserReviews(models.Model):
+    """Модель для збереження підгуків користувачів"""
     current_user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     review = models.TextField('Відгук')
     pub_date = models.DateTimeField('Дата публікації', default=datetime.now())
-    reting = models.CharField('Рейтинг', max_length=150, default=5)
+    reting = models.CharField('Рейтинг', max_length=150)
 
     def __str__(self):
         return f'{str(self.current_user).title()}\'s feedbacks'

@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def login_page(request):
+    """Рендер сторінки входу"""
     if request.user.is_authenticated:
         return redirect('http://127.0.0.1:8000/authorization')
     else:
@@ -22,6 +23,7 @@ def login_page(request):
 
 
 def register(request):
+    """Рендер сторінки реєстрації"""
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -32,6 +34,7 @@ def register(request):
     return render(request, 'account.html', context)
 
 
-def logoutUser(request):
+def logout_user(request):
+    """Рендер сторінки виходу"""
     logout(request)
     return redirect('register')
